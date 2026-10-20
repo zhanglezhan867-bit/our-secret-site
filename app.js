@@ -68,6 +68,20 @@
     return e.message || e.error_description || String(e);
   }
 
+  // 把 Supabase 返回的正式域名（supabase.co）替换为当前配置的代理域名
+  function proxyUrl(u) {
+    if (!u || !cfg.SUPABASE_URL) return u;
+    try {
+      var target = new URL(cfg.SUPABASE_URL);
+      var x = new URL(u);
+      if (x.host !== target.host) {
+        x.protocol = target.protocol;
+        x.host = target.host;
+      }
+      return x.toString();
+    } catch (e) { return u; }
+  }
+
   // ---------------- 农历生日 ----------------
   function nextLunarBirthday(month, day) {
     if (!month || !day || !window.Lunar) return null;
@@ -214,7 +228,7 @@
     if (!paths.length || !sb) return;
     var res = await sb.storage.from("photos").createSignedUrls(paths, 3600);
     if (res.error) return;
-    (res.data || []).forEach(function (x) { if (x.signedUrl) state.photoUrls[x.path] = x.signedUrl; });
+    (res.data || []).forEach(function (x) { if (x.signedUrl) state.photoUrls[x.path] = proxyUrl(x.signedUrl); });
   }
 
   async function loadNotes() {
@@ -231,7 +245,7 @@
     var paths = state.chats.filter(function (c) { return c.image_path; }).map(function (c) { return c.image_path; });
     if (paths.length) {
       var r2 = await sb.storage.from("photos").createSignedUrls(paths, 3600);
-      if (!r2.error) (r2.data || []).forEach(function (x) { if (x.signedUrl) state.chatUrls[x.path] = x.signedUrl; });
+      if (!r2.error) (r2.data || []).forEach(function (x) { if (x.signedUrl) state.chatUrls[x.path] = proxyUrl(x.signedUrl); });
     }
   }
 
