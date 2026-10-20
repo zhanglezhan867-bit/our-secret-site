@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#ffd6e7">
+<title>长乐 &amp; 楠楠 的秘密小站</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ================= 登录 ================= -->
+<div id="auth-view" class="auth-view">
+  <div class="auth-card">
+    <div class="auth-heart">❤</div>
+    <h1 class="auth-title">长乐 &amp; 楠楠</h1>
+    <p class="auth-sub">只属于我们两个人的秘密小站</p>
+
+    <label class="field-label">邮箱</label>
+    <input id="auth-email" class="input" type="email" placeholder="you@example.com" autocomplete="username">
+
+    <label class="field-label">密码</label>
+    <input id="auth-password" class="input" type="password" placeholder="至少 6 位" autocomplete="current-password">
+
+    <button id="btn-login" class="btn btn-primary btn-block">进入小站</button>
+    <button id="btn-signup" class="btn btn-ghost btn-block">注册新账号</button>
+    <p id="auth-msg" class="auth-msg"></p>
+    <p class="auth-tip">第一次使用？先看 README 在 Supabase 里建好两个账号。</p>
+  </div>
+</div>
+
+<!-- ================= 主应用 ================= -->
+<div id="app-view" class="app-view hidden">
+  <header class="topbar">
+    <div class="brand">❤ 长乐 &amp; 楠楠</div>
+    <div id="topbar-date" class="topbar-date"></div>
+  </header>
+
+  <main class="content">
+    <!-- 首页 -->
+    <section id="page-home" class="page active"></section>
+    <!-- 照片 -->
+    <section id="page-photos" class="page"></section>
+    <!-- 文字 -->
+    <section id="page-notes" class="page"></section>
+    <!-- 聊天 -->
+    <section id="page-chat" class="page"></section>
+    <!-- 更多 -->
+    <section id="page-more" class="page"></section>
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab active" data-page="home"><span>🏠</span><em>首页</em></button>
+    <button class="tab" data-page="photos"><span>📷</span><em>照片</em></button>
+    <button class="tab" data-page="notes"><span>✍️</span><em>文字</em></button>
+    <button class="tab" data-page="chat"><span>💬</span><em>聊天</em></button>
+    <button class="tab" data-page="more"><span>🎀</span><em>更多</em></button>
+  </nav>
+</div>
+
+<!-- 图片预览 -->
+<div id="modal" class="modal hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-body">
+    <img id="modal-img" alt="">
+    <button id="modal-close" class="modal-close">✕</button>
+  </div>
+</div>
+
+<!-- 轻提示 -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="vendor/supabase.js"></script>
+<script src="lunar.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
